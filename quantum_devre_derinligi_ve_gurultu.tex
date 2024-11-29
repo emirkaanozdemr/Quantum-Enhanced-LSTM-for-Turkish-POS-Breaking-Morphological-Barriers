@@ -1,0 +1,71 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\title{Quantum LSTM Modelinin Kapasite Sınırları}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Giriş}
+Quantum LSTM modelleri, zaman serisi verilerini işlemek için kullanılan yenilikçi yöntemlerden biridir. Ancak, bu modellerin kapasitesi, quantum devresinin derinliği ve hata oranı nedeniyle sınırlıdır. Bu çalışmada, quantum LSTM modelinin kapasitesinin neden sınırlı olabileceği matematiksel olarak incelenmiştir.
+
+\section*{Quantum Kapılarında Gürültü}
+Bir quantum devresindeki her bir işlem, bir quantum kapısı ile gerçekleştirilir. Ancak, bu kapıların her biri bir hata oranına ($\epsilon$) sahiptir. Eğer bir devre $m$ adet kapıdan oluşuyorsa, toplam hata oranı şu şekilde hesaplanabilir:
+\[
+P_{\text{hata, toplam}} = 1 - (1 - \epsilon)^m
+\]
+Burada:
+\begin{itemize}
+    \item $m$: Quantum devresindeki toplam kapı sayısı,
+    \item $\epsilon$: Her bir kapının bireysel hata oranıdır.
+\end{itemize}
+Kapı sayısı arttıkça toplam hata oranı $P_{\text{hata, toplam}}$, hızla 1'e yaklaşır ve devre hatalı hale gelir.
+
+\section*{Quantum LSTM ve Devre Derinliği}
+Quantum LSTM modelleri, aşağıdaki işlemleri gerçekleştirmek için quantum devrelerini kullanır:
+\begin{itemize}
+    \item \textbf{Giriş Kapısı (Input Gate)}: Hangi bilginin saklanacağını belirler.
+    \item \textbf{Unutma Kapısı (Forget Gate)}: Hangi bilginin unutulacağını belirler.
+    \item \textbf{Çıkış Kapısı (Output Gate)}: Gizli durumu oluşturur.
+\end{itemize}
+
+Her bir zaman adımı için quantum devresinin derinliği şu şekilde ifade edilebilir:
+\[
+d_{\text{adım}} = d_{\text{giriş}} + d_{\text{unutma}} + d_{\text{çıkış}}
+\]
+Burada $d_{\text{adım}}$, bir zaman adımındaki toplam devre derinliğini temsil eder.
+
+Toplam devre derinliği, zaman adımları ($T$) ve gizli durum boyutuna ($h$) bağlı olarak şu şekilde hesaplanır:
+\[
+d_{\text{toplam}} = T \cdot h \cdot d_{\text{adım}}
+\]
+
+\section*{Hata Birikimi ve Sınır}
+Devre derinliği arttıkça toplam hata oranı şu şekilde büyür:
+\[
+P_{\text{hata, toplam}} = 1 - (1 - \epsilon)^{d_{\text{toplam}}}
+\]
+Eğer $d_{\text{toplam}}$ çok büyükse, $(1 - \epsilon)^{d_{\text{toplam}}}$ hızla sıfıra yaklaşır ve toplam hata oranı şu şekilde olur:
+\[
+P_{\text{hata, toplam}} \to 1
+\]
+Bu durumda quantum devresi işlevini yitirir ve model uygulanamaz hale gelir.
+
+\section*{Pratik Sınırlar}
+Mevcut quantum bilgisayarlarında:
+\begin{itemize}
+    \item Kapı hata oranı ($\epsilon$) genellikle $10^{-3}$ ile $10^{-2}$ arasındadır.
+    \item Maksimum devre derinliği ($d_{\text{maks}}$) yaklaşık $10^3$ ile $10^4$ arasında sınırlıdır.
+\end{itemize}
+
+Quantum LSTM'nin toplam devre derinliği bu sınırları aşarsa ($d_{\text{toplam}} > d_{\text{maks}}$), model pratikte uygulanamaz hale gelir.
+
+\section*{Sonuç}
+Quantum LSTM modellerinin kapasitesi, quantum devre derinliğine ve bu derinliğin neden olduğu hata birikimine bağlıdır. Zaman adımı ($T$) ve gizli durum boyutu ($h$) arttıkça devre derinliği büyür ve hata oranı hızla yükselir. Bu nedenle quantum LSTM modellerinin kapasitesi fiziksel olarak sınırlıdır.
+
+\end{document}
