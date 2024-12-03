@@ -9,7 +9,7 @@ class QLSTM(nn.Module):
                 input_size, 
                 hidden_size, 
                 n_qubits=4,
-                n_qlayers=1,
+                n_qlayers=2,
                 batch_first=True,
                 return_sequences=False, 
                 return_state=False,
