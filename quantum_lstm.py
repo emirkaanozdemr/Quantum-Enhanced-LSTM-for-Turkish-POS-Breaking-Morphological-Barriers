@@ -26,10 +26,6 @@ class QLSTM(nn.Module):
         self.return_sequences = return_sequences
         self.return_state = return_state
 
-        #self.dev = qml.device("default.qubit", wires=self.n_qubits)
-        #self.dev = qml.device('qiskit.basicaer', wires=self.n_qubits)
-        #self.dev = qml.device('qiskit.ibm', wires=self.n_qubits)
-        # use 'qiskit.ibmq' instead to run on hardware
 
         self.wires_forget = [f"wire_forget_{i}" for i in range(self.n_qubits)]
         self.wires_input = [f"wire_input_{i}" for i in range(self.n_qubits)]
